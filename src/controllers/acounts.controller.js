@@ -1,4 +1,5 @@
-const {getConnection} = require('../database/database')
+const {getConnection} = require('../database/database');
+const bcrypt = require('bcryptjs');
 /**
 *@param {*} req
 *@param {*} res
@@ -82,7 +83,37 @@ const deleteAcount = async(req, res)=>{
     }
    
 }
-const createAcount = ()=>{}
+const createAcount = async(req, res)=>{
+    try {
+        const {username, password,first_name = null, last_name = null, email = null} = req.body;
+        const usuario = {
+            username, 
+            password,
+            first_name, 
+            last_name, 
+            email   
+        }
+
+        //encriptar la password:
+        const salt = bcrypt.genSaltSync();
+        usuario.password = bcrypt.hashSync(password, salt);
+
+        const connection = await getConnection();
+        const sql = 'INSERT INTO accounts set ?';
+        const resultado = await connection.query(sql,usuario);
+
+        return res.status(200).json({
+            ok:true,
+            msg:'Usuario creado con exito'
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            ok:false,
+            msg: error.message
+        })
+    }
+}
 
 
 

@@ -5,11 +5,13 @@ const router = Router();
 
 router.get('/',getAcounts);
 router.get('/:id',getAcountById);
-router.post('/', check(['username', 'password'], 'El usuario y la contraseña son requeridos'), createAcount);
+router.post('/', createAcount);
 router.put('/:id', editAcount);
 router.delete('/:id', deleteAcount);
 
 module.exports = router;
+
+//check(['username', 'password'], 'El usuario y la contraseña son requeridos'),
 
 
 
