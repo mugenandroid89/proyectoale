@@ -10,12 +10,12 @@ const login = async(req, res)=>{
 
     try {
 
-        console.log(username);
+        //console.log(username);
         const connection = await getConnection();
-        const resultado = await connection.query('SELECT id, password FROM users where username = ?',username);
+        const resultado = await connection.query('SELECT id_account, password FROM accounts where username = ?',username);
 
 
-        console.log(resultado[0]);
+        //console.log(resultado[0]);
         //comparar password
         if(resultado.length < 1){
             return res.status(404).json({
@@ -24,11 +24,11 @@ const login = async(req, res)=>{
             })
         }
 
-        console.log(resultado[0].password)
+        //console.log(resultado[0].password)
 
         //si encontramos el usuario validamos la password
         const validPassword = bcrypt.compareSync(password,(resultado[0].password));
-        console.log(validPassword);
+        //console.log(validPassword);
         if(!validPassword){
             return res.status(404).json({
                 ok:false,
@@ -38,7 +38,7 @@ const login = async(req, res)=>{
         
         //si existe el usuario y la password es correcta generamos el token
 
-        console.log(resultado[0].id);
+        //console.log(resultado[0].id);
         const token = await generarJWT(resultado[0].id)
 
         res.status(200).json({

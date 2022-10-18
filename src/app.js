@@ -14,7 +14,9 @@ app.use(morgan("dev"));
 
 app.use('/api/accounts',require('../src/routes/acounts.routes'));
 // app.use('/api/users',require('./routes/users.routes'));
-// app.use('/api/login', require('./routes/auth.routes'));
+app.use('/api/login', require('../src/routes/auth.routes'));
+
+app.use('/api/transactions', require('../src/routes/transactions.routes'));
 
 //prueba de conexión satifactoria
 database.getConnection().then(conexion=>{console.log(conexion)})
