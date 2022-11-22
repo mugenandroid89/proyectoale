@@ -12,7 +12,7 @@ const login = async(req, res)=>{
 
         //console.log(username);
         const connection = await getConnection();
-        const resultado = await connection.query('SELECT id_account, password FROM accounts where username = ?',username);
+        const resultado = await connection.query('SELECT id_account, password, is_staff FROM accounts where username = ?',username);
 
 
         //console.log(resultado[0]);
@@ -40,10 +40,12 @@ const login = async(req, res)=>{
 
         //console.log(resultado[0].id);
         const token = await generarJWT(resultado[0].id)
-
+        const isStaff = await resultado[0].is_staff
         res.status(200).json({
             ok:true,
-            token
+            token,
+            isStaff
+            
         })
 
     } catch (error) {
