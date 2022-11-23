@@ -55,17 +55,13 @@ const createTransaction = async(req, res)=>{
             cantidad
         }
 
-        //encriptar la password:
-        const salt = bcrypt.genSaltSync();
-        usuario.password = bcrypt.hashSync(password, salt);
-
         const connection = await getConnection();
-        const sql = 'INSERT INTO accounts set ?';
+        const sql = 'INSERT INTO `transactions` set ?';
         const resultado = await connection.query(sql,usuario);
 
         return res.status(200).json({
             ok:true,
-            msg:'Usuario creado con exito'
+            msg:'Transacción exitosa'
         })
 
     } catch (error) {
@@ -77,8 +73,11 @@ const createTransaction = async(req, res)=>{
 }
 
 
+
+
 module.exports={
     getTransactions,
-    getTransactionById
+    getTransactionById,
+    createTransaction
 
 }

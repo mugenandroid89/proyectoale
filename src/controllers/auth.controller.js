@@ -41,11 +41,12 @@ const login = async(req, res)=>{
         //console.log(resultado[0].id);
         const token = await generarJWT(resultado[0].id)
         const isStaff = await resultado[0].is_staff
+        const id = await resultado[0].id_account
         res.status(200).json({
             ok:true,
             token,
-            isStaff
-            
+            isStaff,
+            id
         })
 
     } catch (error) {
