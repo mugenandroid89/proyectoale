@@ -14,10 +14,12 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use('/api/accounts',require('../src/routes/acounts.routes'));
-// app.use('/api/users',require('./routes/users.routes'));
+
 app.use('/api/login', require('../src/routes/auth.routes'));
 
 app.use('/api/transactions', require('../src/routes/transactions.routes'));
+
+app.use('/api/cuentas', require('../src/routes/cuentas.routes'));
 
 app.use(fileUpload({
     useTempFiles : true,

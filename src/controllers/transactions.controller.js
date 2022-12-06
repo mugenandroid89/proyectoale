@@ -30,7 +30,7 @@ const getTransactionById = async(req, res)=>{
         const connection = await getConnection();
         const {id}=req.params;
 
-        const result = await connection.query("SELECT * FROM `transaction` WHERE id=?",[id]);
+        const result = await connection.query("SELECT * FROM `transactions` WHERE id=?",[id]);
         
         res.status(200).json({
             ok:true,
